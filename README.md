@@ -2,7 +2,7 @@
 https://www.telerik.com/kendo-react-ui/components/pdfprocessing/get-started/
 
 ## My Youtube video tutorial explaining how to use it
-https://github.com/gustavoiosimura/Generate-PDF-from-React-Component
+https://www.youtube.com/watch?v=LMUeJriiZa4
 
 ## Available Scripts
 
