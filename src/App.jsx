@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Chart from "chart.js/auto";
 import { Pie } from "react-chartjs-2";
+import { PDFExport } from '@progress/kendo-react-pdf';
 
 
 const data = {
@@ -40,13 +41,15 @@ function PieChart({ chartData }) {
 
 function ChartReport({ chartData, pdfExportComponent }) {
   return (
-    <div>
-      <PieChart chartData={chartData} />
-      <div  >
-        <h2>Pie Chart</h2>
-        <p>The pie chart below illustrates the distribution of users gained between 2016 and 2020. Each slice of the pie represents a specific year, and the size of the slice corresponds to the number of users gained in that year.</p>
+    <PDFExport ref={pdfExportComponent} paperSize="A4">
+      <div>
+        <PieChart chartData={chartData} />
+        <div  >
+          <h2>Pie Chart</h2>
+          <p>The pie chart below illustrates the distribution of users gained between 2016 and 2020. Each slice of the pie represents a specific year, and the size of the slice corresponds to the number of users gained in that year.</p>
+        </div>
       </div>
-    </div>
+    </PDFExport>
   )
 }
 
@@ -112,10 +115,19 @@ function App() {
       }
     },
   };
- 
+
+  const pdfExportComponent = React.useRef();
+
+  const exportPDFWithComponent = () => {
+    if (pdfExportComponent.current) {
+      pdfExportComponent.current.save();
+    }
+  };
+
   return (
-    <div className="App"> 
-      <ChartReport chartData={chartData} />
+    <div className="App">
+      <button onClick={() => exportPDFWithComponent()}>Download PDF</button>
+      <ChartReport chartData={chartData} pdfExportComponent={pdfExportComponent} />
     </div>
   );
 }
